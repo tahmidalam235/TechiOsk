@@ -49,6 +49,12 @@
     color: black;
     font-size: 22px;
     font-weight: 700;
+
+    cursor: pointer;   /* 🔥 ADD THIS LINE */
+}
+.hero-latest-button:hover {
+  transform: scale(1.05);
+  transition: 0.3s;
 }
 
 .hero-right{

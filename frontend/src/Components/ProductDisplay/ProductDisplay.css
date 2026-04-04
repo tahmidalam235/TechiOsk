@@ -5,6 +5,8 @@
 .product-display-left{
     display: flex;
     gap: 17px;
+    flex: 1;
+    max-width: 50%;
 }
 .product-display-img-list{
     display: flex;
@@ -15,13 +17,18 @@
     height: 163px;
 }
 .product-display-img-main{
-    width: 586px;
-    height: 700px;
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
 }
 .product-display-right{
     margin: 0px 70px;
     display: flex;
     flex-direction: column;
+    flex: 1;
+    position: relative;
+    z-index: 5;
 }
 .product-display-right h1{
     color: #3d3d3d;
@@ -284,4 +291,61 @@
 
 .product-display-sizes div:hover {
   transform: scale(1.05);
+}
+.product-display-right {
+  position: relative;
+  z-index: 10;
+}
+
+.product-display-right button {
+  position: relative;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.product-display-sizes div {
+  position: relative;
+  z-index: 20;
+}
+
+.product-display-left {
+  position: relative;
+  z-index: 1;
+}
+
+.product-display-img-main {
+  pointer-events: none;
+}
+.product-display-left img {
+    pointer-events: none;
+}
+.product-display-left {
+  pointer-events: none;
+}
+
+.product-display-right {
+  pointer-events: auto;
+}
+.product-display-right button {
+  pointer-events: auto;
+  z-index: 999;
+}
+.toast {
+  position: fixed;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #3bc9dc;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  z-index: 999;
+  animation: slideDown 0.5s forwards;
+}
+
+@keyframes slideDown {
+  to {
+    top: 30px;
+  }
 }

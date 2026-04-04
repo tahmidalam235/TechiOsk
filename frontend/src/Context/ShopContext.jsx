@@ -4,11 +4,7 @@ import React, { createContext, useEffect, useState } from "react";
 export const ShopContext = createContext(null);
 
 const getDefaultCart = () => {
-    let cart = {};
-    for (let index = 0; index < 300+1; index++) {
-        cart[index] = 0;
-    }
-    return cart;
+  return {};
 }
 
 const ShopContextProvider = (props) => {
@@ -35,25 +31,28 @@ const ShopContextProvider = (props) => {
         }
     },[])
 
-    const addToCart = (itemId) => {
-        setCartItems((prev) => ({...prev,[itemId]:prev[itemId]+1}));
-        if(localStorage.getItem('auth-token')){
-            fetch('https://techiosk-backend.onrender.com/addtocart', {
-                method: 'POST',
-                headers: {
-                            Accept: 'application/form-data', 
-                            'auth-token': `${localStorage.getItem('auth-token')}`, 
-                            'Content-Type': 'application/json'
-                        },
-                body: JSON.stringify({"itemId": itemId})
-            })
-            .then(res => res.json)
-            .then(data => console.log(data))
-        }
-    }
+    const addToCart = (itemId, config) => {
+  console.log("ADDING LOCAL:", itemId, config);
 
-    const removeFromCart = (itemId) => {
-        setCartItems((prev) => ({...prev,[itemId]:prev[itemId]-1}));
+  setCartItems((prev) => {
+    const key = itemId + "-" + config;
+
+    if (!prev[key]) {
+      return { ...prev, [key]: 1 };
+    } else {
+      return { ...prev, [key]: prev[key] + 1 };
+    }
+  });
+};
+
+    const removeFromCart = (itemId, config) => {
+  const key = itemId + "-" + config;
+
+  setCartItems((prev) => ({
+    ...prev,
+    [key]: prev[key] > 1 ? prev[key] - 1 : 0
+  }));
+
         if(localStorage.getItem('auth-token')){
             fetch('https://techiosk-backend.onrender.com/removefromcart', {
                 method: 'POST',
@@ -64,7 +63,7 @@ const ShopContextProvider = (props) => {
                         },
                 body: JSON.stringify({"itemId": itemId})
             })
-            .then(res => res.json)
+            .then(res => res.json())
             .then(data => console.log(data))
         }
 
@@ -74,8 +73,13 @@ const ShopContextProvider = (props) => {
         var total_amount = 0;
         for (const item in cartItems) {
             if(cartItems[item]>0){
-                let itemInfo = all_product.find((product) => product.id===Number(item));
-                total_amount += (itemInfo.new_price * cartItems[item]);
+                const id = item.split("-")[0]; // get real product id
+
+let itemInfo = all_product.find((product) => product._id === id);
+
+if(itemInfo){
+  total_amount += (itemInfo.price * cartItems[item]);
+}
             }
         }
         return total_amount;
@@ -91,8 +95,35 @@ const ShopContextProvider = (props) => {
         }
         return total_items;
     }
+    const updateCartQuantity = (itemId, config, type) => {
+  const key = itemId + "-" + config;
 
-    const contextValue = {all_product,cartItems,addToCart,removeFromCart, getTotalCartValue, getTotalCartItems};
+  setCartItems((prev) => {
+    let newQty = prev[key] || 0;
+
+    if (type === "inc") newQty += 1;
+    if (type === "dec") newQty -= 1;
+
+    if (newQty <= 0) {
+      const updated = { ...prev };
+      delete updated[key];
+      return updated;
+    }
+
+    return { ...prev, [key]: newQty };
+  });
+};
+    
+
+    const contextValue = {
+  all_product,
+  cartItems,
+  addToCart,
+  removeFromCart,
+  getTotalCartValue,
+  getTotalCartItems,
+  updateCartQuantity   // 🔥 THIS LINE WAS MISSING
+};
 
     return (
         <ShopContext.Provider value={contextValue}>
