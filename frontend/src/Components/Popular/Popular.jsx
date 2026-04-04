@@ -1,25 +1,35 @@
 import React, { useEffect, useState } from 'react'
-import './Popular.css'
-// import data_product from '../Assets/data'
 import Item from '../Item/Item'
 
 const Popular = () => {
 
-  const [popularItems, setPopularItems] = useState([]);
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
-    fetch('https://techiosk-backend.onrender.com/popular-phones')
-    .then(res => res.json())
-    .then(data => setPopularItems(data));
-  },[])
+    fetch("https://techiosk-backend.onrender.com/all-products")
+      .then(res => res.json())
+      .then(data => {
+        const phones = data.filter(item => item.category === "phone")
+        setProducts(phones)
+      })
+  }, [])
 
   return (
-    <div className='popular'>
+    <div className="popular">
       <h1>POPULAR SMARTPHONES</h1>
       <hr />
       <div className="popular-item">
-        {popularItems.map((item,i) => {
-            return <Item key={i} id={item.id} name={item.name} image={item.image} new_price={item.new_price} old_price={item.old_price}/>
+        {products.map((item,i) => {
+          return (
+  <Item 
+    key={item._id}
+    id={item._id}
+    name={item.name}
+    image={item.image}
+    new_price={item.price}
+    old_price={item.price + 100}
+  />
+)
         })}
       </div>
     </div>

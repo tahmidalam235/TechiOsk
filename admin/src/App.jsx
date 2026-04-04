@@ -1,14 +1,15 @@
-import React from 'react'
-import Navbar from './Components/Navbar/Navbar'
-import Admin from './Pages/Admin/Admin'
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Shop from "./Pages/Shop";
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <Navbar/>
-      <Admin/>
-    </div>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Shop />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
