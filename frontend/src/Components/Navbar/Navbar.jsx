@@ -22,7 +22,7 @@ const Navbar = () => {
       <Link to='/' style={{textDecoration: 'none'}}>
         <div className="nav-logo">
           <img src={logo} alt="" />
-          <p>HI ShaiLa</p>
+          <p>TechiOsk</p>
         </div>
       </Link>
       <img className='nav-dropdown' onClick={dropdown_toggle} src={nav_dropdown} alt="" />

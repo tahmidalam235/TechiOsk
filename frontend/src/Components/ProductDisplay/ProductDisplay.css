@@ -273,3 +273,15 @@
         font-size: 16px;
     }
 }
+.product-display-sizes div.active {
+  border: 2px solid #00bcd4;
+  background: #e0f7fa;
+}
+.product-display-sizes div {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.product-display-sizes div:hover {
+  transform: scale(1.05);
+}
