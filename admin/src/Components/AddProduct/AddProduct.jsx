@@ -29,7 +29,7 @@ const AddProduct = () => {
         let formData = new FormData();
         formData.append('product', image);
 
-        await fetch("http://localhost:4000/upload",{
+        await fetch("https://techiosk-backend.onrender.com/upload",{
             method: 'POST',
             headers: {Accept:'application/json'},
             body: formData
@@ -38,7 +38,7 @@ const AddProduct = () => {
         if(responseData.success){
             product.image = responseData.image_url;
             console.log(product);
-            await fetch("http://localhost:4000/add-product", {
+            await fetch("https://techiosk-backend.onrender.com/add-product", {
                 method: 'POST',
                 headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
                 body: JSON.stringify(product)

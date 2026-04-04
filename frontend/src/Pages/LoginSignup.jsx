@@ -17,7 +17,7 @@ const LoginSignup = () => {
   const login = async () => {
     console.log("Login function executed");
     let responseData;
-    await fetch('http://localhost:4000/login', {
+    await fetch('https://techiosk-backend.onrender.com/login', {
       method: 'POST',
       headers:{Accept: 'application/json', 'Content-Type': 'application/json'},
       body: JSON.stringify(formData),
@@ -36,7 +36,7 @@ const LoginSignup = () => {
   const signUp = async () => {
     console.log("Signup function executed");
     let responseData;
-    await fetch('http://localhost:4000/signup', {
+    await fetch('https://techiosk-backend.onrender.com/signup', {
       method: 'POST',
       headers:{Accept: 'application/json', 'Content-Type': 'application/json'},
       body: JSON.stringify(formData),

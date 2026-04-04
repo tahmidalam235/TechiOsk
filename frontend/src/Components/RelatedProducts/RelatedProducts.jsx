@@ -11,7 +11,7 @@ const RelatedProducts = (props) => {
     console.log(product)
     // var category = props.product.category;
     // console.log(category.toLowerCase());
-    fetch(`http://localhost:4000/related-${product.category}`)
+    fetch(`https://techiosk-backend.onrender.com/related-${product.category}`)
     .then(res => res.json())
     .then(data => setRelatedProducts(data));
   },[])

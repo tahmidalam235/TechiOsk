@@ -7,7 +7,7 @@ const ProductList = () => {
   const [allProducts, setAllProducts] = useState([]);
 
   const fetchAllProducts = async () => {
-    await fetch("http://localhost:4000/all-products")
+    await fetch("https://techiosk-backend.onrender.com/all-products")
     .then(res => res.json())
     .then(data => {setAllProducts(data)});
   }
@@ -15,7 +15,7 @@ const ProductList = () => {
   useEffect(() => {fetchAllProducts();},[]);
 
   const removeProduct = async (id) => {
-    await fetch("http://localhost:4000/remove-product", {
+    await fetch("https://techiosk-backend.onrender.com/remove-product", {
       method: 'POST',
       headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
       body: JSON.stringify({id:id})

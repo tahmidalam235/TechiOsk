@@ -8,7 +8,7 @@ const Popular = () => {
   const [popularItems, setPopularItems] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/popular-phones')
+    fetch('https://techiosk-backend.onrender.com/popular-phones')
     .then(res => res.json())
     .then(data => setPopularItems(data));
   },[])

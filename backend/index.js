@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 // ✅ MongoDB Connection (FINAL FIX)
-mongoose.connect("mongodb+srv://tahmidalam235:tahmid123@cluster0.oot6to7.mongodb.net/?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://tahmidalam235:tahmid123@cluster0.oot6to7.mongodb.net/techiosk?retryWrites=true&w=majority")
 .then(() => console.log("🔥 Database connected"))
 .catch((err) => console.log(err));
 
